@@ -1,0 +1,33 @@
+This repo is for our paper in bigdata 2024, titled "An Active Learning-Based Streaming Pipeline for Reduced Data Training of Structure Finding Models in Neutron Diffractometry". Here we provide code for the two main contribution of the paper, which are
+
+1). Active learning algorithm
+which is about simulating data in a smarter way based on the performance of ML model, so that we can train ML model to the same accuracy with less data.
+
+2). Streaming algorithm
+which is about improving the usual serial workflow in active learning using a more resource-friendly workflow that improves the overall performance.
+
+The first point can be tested on any systems, and the second point requires a job scheduling system. Our code provided here is supposed to
+Support 1) on any system.
+Support 2) only on Polaris and Perlmutter. 
+
+To be able to run the code and reproduce the results of the paper, please following the following steps:
+
+Step 1: Install environment
+1a). Install packages for training and active learning tasks:
+
+On Perlmutter:
+
+module load pytorch/2.0.1
+
+On Polaris:
+
+module use /soft/modulefiles
+module load conda/2024-04-29
+
+On other system, we provide a packages list. A shifter container will be provided shortly to alleviate the need for building environment from scratch. Before that, user can use the following command to build env:
+
+conda env create -f environment.yml -n <env_name>
+
+1b). Install GSAS-II for simulation tasks:
+
+
