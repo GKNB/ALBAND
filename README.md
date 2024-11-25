@@ -60,7 +60,7 @@ Before executing the command, modify the script as follows:
 
 - Set `seed` (line 12) to: 13010, 13110, 13210, 13310, 13410, 13510
 - Set `num_sample` (line 18) to: 40000, 80000, 120000, 160000, 200000, 240000
-- Ensure the environment is properly set up (see step 1), and adjust line 9 accordingly.
+- Ensure the environment is properly set up (see step 1), and adjust line 9 accordingly. Some example can be found in `env/env_polaris.sh`
 - Define `work_dir` as the directory containing this repository (line 13).
 - For `num_sample` exceeding 120000, use a different queue (e.g., preemptable) on Polaris, as these tasks cannot complete within an hour.
 
