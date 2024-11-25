@@ -1,38 +1,46 @@
-This repo is for our recent work submitted to bigdata 2024, titled "An Active Learning-Based Streaming Pipeline for Reduced Data Training of Structure Finding Models in Neutron Diffractometry". Here we provide code for the two main contribution of the paper, which are
+# An Active Learning-Based Streaming Pipeline for Reduced Data Training of Structure Finding Models in Neutron Diffractometry
 
-1). Active learning algorithm
-which is about simulating data in a smarter way based on the performance of ML model, so that we can train ML model to the same accuracy with less data.
+This repository contains the code for our recent work submitted to **BigData 2024**, titled "*An Active Learning-Based Streaming Pipeline for Reduced Data Training of Structure Finding Models in Neutron Diffractometry*". The code provides implementations for the two main contributions of the paper:
 
-2). Streaming algorithm
-which is about improving the usual serial workflow in active learning using a more resource-friendly workflow that improves the overall performance.
+1. **Active Learning Algorithm**: A smarter data simulation approach based on the performance of a machine learning model, allowing the model to achieve the same accuracy with less data.
 
-The active learning algorithm can be tested on any systems, and the streaming algorithm requires a job scheduling system. Our code provided here is supposed to
-Support 1) on any system.
-Support 2) only on Polaris and Perlmutter. 
+2. **Streaming Algorithm**: An improved workflow over the usual serial active learning workflow, utilizing a more resource-friendly streaming pipeline to enhance overall performance.
 
-To be able to run the code and reproduce the results of the paper, please following the following steps:
+- The **Active Learning Algorithm** can be tested on any system.
 
-Step 1: Install environment
-1a). Install packages for training and active learning tasks:
+- The **Streaming Algorithm** requires a job scheduling system and is supported only on **Polaris** and **Perlmutter**.
 
-On Perlmutter:
+## Prerequisites
 
-module load pytorch/2.0.1
+### Environment Setup
 
-On Polaris:
+#### 1. Install Packages for Training and Active Learning Tasks
 
-module use /soft/modulefiles
-module load conda/2024-04-29
+- **On Perlmutter:**
 
-On other system, we provide a packages list. A shifter container will be provided shortly to alleviate the need for building environment from scratch. Before that, user can use the following command to build env:
+  ```bash
+  module load pytorch/2.0.1
 
-conda env create -f environment.yml -n <env_name>
+- **On Polaris:**
 
-1b). Install GSAS-II for simulation tasks:
+  ```bash
+  module use /soft/modulefiles
+  module load conda/2024-04-29
 
-g2="https://github.com/AdvancedPhotonSource/GSAS-II-buildtools/releases/download/v1.0.1/gsas2full-Latest-Linux-x86_64.sh"
-curl -L "$g2" > /tmp/g2.sh
-bash /tmp/g2.sh -b -p ~/g2full
+- **On Other systems**
+
+We provide a packages list. A shifter container will be provided shortly to alleviate the need for building environment from scratch. Before that, user can use the following command to build env:
+
+  ```bash
+  conda env create -f environment.yml -n <env_name>
+
+#### 2. Install GSAS-II for simulation tasks:
+
+  
+  ```bash
+  g2="https://github.com/AdvancedPhotonSource/GSAS-II-buildtools/releases/download/v1.0.1/gsas2full-Latest-Linux-x86_64.sh"
+  curl -L "$g2" > /tmp/g2.sh
+  bash /tmp/g2.sh -b -p ~/g2full
 
 Please note that, if you don't want to install into ~/g2full, please search and replace that string in executable directory and make corresponding changes.
 
@@ -44,7 +52,7 @@ In this step we try to perform baseline experiment and sweep over multiple datas
 The command for running this experiment will be:
 
 cd workflow
-qsub submit_baseline.sh 
+qsub submit_baseline.sh
 
 
 Before executing this command, modify the script according to the following directions:
@@ -66,7 +74,7 @@ Step 3: Running the serial workflow
 
 In this step we try to run the active learning serial workflow. This will output two important data: a). Accuracy performance of Active learning, and b). Running time performance of serial workflow. This will give us the black/red error band in Figure 7,8, data associate with serial workflow in Figure 9,10 and Table III,IV,V. Note: We will not get exactly the same number, but results will be consistent.
 
-The command for running this experiment will be 
+The command for running this experiment will be
 
 cd workflow
 qsub submit_serial.sh
