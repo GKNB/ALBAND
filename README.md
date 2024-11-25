@@ -45,7 +45,7 @@ The **Active Learning Algorithm** can be executed on any system, while the **Str
 
   If you prefer not to install GSAS-II in `~/g2full`, please modify the relevant paths in the executable scripts accordingly.
 
-## Running the Baseline
+## Running the Baseline on Polaris
 
 The baseline experiment involves running multiple iterations with varying dataset sizes and random seeds to ensure robustness. This process produces the black error bars shown in Figures 7 and 8. Although the exact results may diff from those in Figure/Table, they will be consistent.
 
@@ -66,7 +66,7 @@ Before executing the command, modify the script as follows:
 
 A total of 36 experiments will be conducted to generate six data points with error bars.
 
-## Running the Serial Workflow
+## Running the Serial Workflow on Polaris
 
 In this step, we execute the active learning serial workflow to evaluate:
 
@@ -99,7 +99,7 @@ Before executing the command, modify the script as follows:
 - Set `num_sample` (line 18) to: 72000
 - Set `batch_size` (line 23) to: 2048
 
-## Running the Streaming Workflow
+## Running the Streaming Workflow on Polaris
 
 The final step involves running the active learning streaming workflow to evaluate the runtime performance of this approach. The results are used for Figures 9 and 10 and Tables III, IV, and V. Although the exact results may diff from those in Figure/Table, they will be consistent.
 
@@ -129,3 +129,4 @@ Before executing, ensure the script is configured to match your experimental set
 - Set `num_al_sample` (line 22) to: 86400
 - Set `batch_size` (line 24) to: 2048
 
+## Running Experiment E2 on Perlmutter
