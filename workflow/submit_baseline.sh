@@ -10,14 +10,14 @@ source /home/twang3/useful_script/conda_exalearn.sh
 export MPICH_GPU_SUPPORT_ENABLED=1
 
 seed=13410
-work_dir="/lus/eagle/projects/RECUP/twang/exalearn_stage2/"
+work_dir="/lus/eagle/projects/RECUP/twang/RALPH/"
 exe_dir="${work_dir}/executable/"
 exp_dir="${work_dir}/experiment/seed_${seed}/"
 shared_file_dir="${exp_dir}/sfd/"
 data_dir="${work_dir}/data/seed_${seed}/"
-num_sample=200000
-num_sample_val=$((${num_sample} / 8))
-num_sample_test=$((${num_sample} / 8))
+num_sample=20000
+num_sample_val=$((${num_sample} / 4))
+num_sample_test=$((${num_sample} / 4))
 batch_size=1024
 epochs_0=400
 

@@ -7,12 +7,12 @@ parser.add_argument('--seed', type=int, required=True, help='An integer seed')
 args = parser.parse_args()
 seed = args.seed
 
-root_dir = "/lus/eagle/projects/RECUP/twang/exalearn_stage2/data/"
+root_dir = "/lus/eagle/projects/RECUP/twang/RALPH/data/"
 dir_list = ["base", "validation", "test", "study", "stream_phase_1", "stream_phase_2", "AL_phase_1", "AL_phase_2", "AL_phase_3"]
 config_list = ["config_1001460_cubic.txt", "config_1522004_trigonal.txt", "config_1531431_tetragonal.txt"] 
 
 cubic_config = """[Global_Params]
-path_in = '/lus/eagle/projects/RECUP/twang/exalearn_stage2/cif_file_in/'
+path_in = '/lus/eagle/projects/RECUP/twang/RALPH/cif_file_in/'
 symmetry = 'cubic'
 name = 'Ba2BiO5'
 cif = '1001460.cif'
@@ -24,7 +24,7 @@ tmax = 18.919
 tstep = 0.0009381"""
 
 trigonal_config="""[Global_Params]
-path_in = '/lus/eagle/projects/RECUP/twang/exalearn_stage2/cif_file_in/'
+path_in = '/lus/eagle/projects/RECUP/twang/RALPH/cif_file_in/'
 symmetry = 'trigonal'
 name = 'LaMnO3'
 cif = '1522004.cif'
@@ -36,7 +36,7 @@ tmax = 18.919
 tstep = 0.0009381"""
 
 tetragonal_config="""[Global_Params]
-path_in = '/lus/eagle/projects/RECUP/twang/exalearn_stage2/cif_file_in/'
+path_in = '/lus/eagle/projects/RECUP/twang/RALPH/cif_file_in/'
 symmetry = 'tetragonal'
 name = 'KNbO3'
 cif = '1531431.cif'

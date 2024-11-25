@@ -10,7 +10,7 @@ source /home/twang3/useful_script/conda_exalearn.sh
 export MPICH_GPU_SUPPORT_ENABLED=1
 
 seed=30210
-work_dir="/lus/eagle/projects/RECUP/twang/exalearn_stage2/"
+work_dir="/lus/eagle/projects/RECUP/twang/RALPH/"
 exe_dir="${work_dir}/executable/"
 exp_dir="${work_dir}/experiment/seed_${seed}/"
 shared_file_dir="${exp_dir}/sfd/"
