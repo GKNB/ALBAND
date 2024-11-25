@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#PBS -l select=2:system=polaris
+#PBS -l select=1:system=polaris
 #PBS -l place=scatter
 #PBS -l walltime=01:00:00
 #PBS -l filesystems=home:grand:eagle
@@ -15,8 +15,11 @@ exe_dir="${work_dir}/executable/"
 exp_dir="${work_dir}/experiment/seed_${seed}/"
 shared_file_dir="${exp_dir}/sfd/"
 data_dir="${work_dir}/data/seed_${seed}/"
-num_sample=18000
-num_al_sample=54000
+num_sample=4500
+num_sample_val=$((${num_sample} / 2))
+num_sample_test=$((${num_sample} / 2))
+num_sample_study=${num_sample}
+num_al_sample=$((${num_sample} * 3))
 batch_size=512
 epochs_0=400
 epochs_1=300
@@ -73,7 +76,7 @@ cd ${exp_dir}
     mpiexec -n ${nthread_tot} --ppn ${nthread} \
         --depth=1 --cpu-bind depth --env OMP_NUM_THREADS=1 --env OMP_PLACES=threads \
         python ${exe_dir}/simulation_sample.py \
-               ${num_sample} $((${seed} + 1)) \
+               ${num_sample_val} $((${seed} + 1)) \
                ${data_dir}/validation/config/config_1001460_cubic.txt \
                ${data_dir}/validation/config/config_1522004_trigonal.txt \
                ${data_dir}/validation/config/config_1531431_tetragonal.txt
@@ -88,7 +91,7 @@ cd ${exp_dir}
     mpiexec -n ${nthread_tot} --ppn ${nthread} \
         --depth=1 --cpu-bind depth --env OMP_NUM_THREADS=1 --env OMP_PLACES=threads \
         python ${exe_dir}/simulation_sample.py \
-               ${num_sample} $((${seed} + 1)) \
+               ${num_sample_test} $((${seed} + 1)) \
                ${data_dir}/test/config/config_1001460_cubic.txt \
                ${data_dir}/test/config/config_1522004_trigonal.txt \
                ${data_dir}/test/config/config_1531431_tetragonal.txt
@@ -103,7 +106,7 @@ cd ${exp_dir}
     mpiexec -n ${nthread_study_tot} --ppn ${nthread_study} \
         --depth=1 --cpu-bind depth --env OMP_NUM_THREADS=1 --env OMP_PLACES=threads \
         python ${exe_dir}/simulation_sweep.py \
-                ${num_sample} \
+                ${num_sample_study} \
                 ${data_dir}/study/config/config_1001460_cubic.txt \
                 ${data_dir}/study/config/config_1522004_trigonal.txt \
                 ${data_dir}/study/config/config_1531431_tetragonal.txt
@@ -112,7 +115,15 @@ cd ${exp_dir}
     mpiexec -n 1 --ppn 1 --depth=32 --cpu-bind depth --env OMP_NUM_THREADS=32 --env OMP_PLACES=threads python ${exe_dir}/merge_preprocess_hdf5.py ${data_dir}/study/data trigonal ${nthread_study_tot}
     mpiexec -n 1 --ppn 1 --depth=32 --cpu-bind depth --env OMP_NUM_THREADS=32 --env OMP_PLACES=threads python ${exe_dir}/merge_preprocess_hdf5.py ${data_dir}/study/data tetragonal ${nthread_study_tot}
     echo "Logging: End study simulation and merge, $(( $(date +%s%3N) - ${start} )) milliseconds"
-   
+
+# Here separating the preprocessing of study set could lead to error on Polaris
+# so we merge it into the train.py, which will lead to some performance drop   
+#    echo "Logging: Start preprocessing study set"
+#    start=$(date +%s%3N)
+#    mpiexec -n 1 --ppn 1 --depth=32 --cpu-bind depth --env OMP_NUM_THREADS=32 --env OMP_PLACES=threads \
+#        python ${exe_dir}/preprocess_study.py --data_dir ${data_dir}
+#    echo "Logging: End preprocessing study set, $(( $(date +%s%3N) - ${start2} )) milliseconds"
+
     echo "Logging: Start training, phase 0"
     if [ -d ${shared_file_dir} ]; then
         rm -r ${shared_file_dir}

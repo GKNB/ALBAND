@@ -123,10 +123,16 @@ test_tetragonal_file  = os.path.join(args.data_dir, "test/data/tetragonal_153143
 val_cubic_file       = os.path.join(args.data_dir, "validation/data/cubic_1001460_cubic.hdf5")
 val_trigonal_file    = os.path.join(args.data_dir, "validation/data/trigonal_1522004_trigonal.hdf5")
 val_tetragonal_file  = os.path.join(args.data_dir, "validation/data/tetragonal_1531431_tetragonal.hdf5")
+study_cubic_file      = os.path.join(args.data_dir, "study/data/cubic_1001460_cubic.hdf5")
+study_trigonal_file   = os.path.join(args.data_dir, "study/data/trigonal_1522004_trigonal.hdf5")
+study_tetragonal_file = os.path.join(args.data_dir, "study/data/tetragonal_1531431_tetragonal.hdf5")
+
+
 
 x_train, y_train  = util.create_numpy_data(base_cubic_file, base_trigonal_file,  base_tetragonal_file)
 x_val,   y_val    = util.create_numpy_data(val_cubic_file,  val_trigonal_file,   val_tetragonal_file)
 x_test,  y_test   = util.create_numpy_data(test_cubic_file, test_trigonal_file,  test_tetragonal_file)
+x_study, y_study = util.create_numpy_data(study_cubic_file, study_trigonal_file, study_tetragonal_file)
 
 print_from_rank0("x_train.shape = ", x_train.shape)
 print_from_rank0("y_train.shape = ", y_train.shape)
@@ -134,6 +140,9 @@ print_from_rank0("x_val.shape = ", x_val.shape)
 print_from_rank0("y_val.shape = ", y_val.shape)
 print_from_rank0("x_test.shape = ", x_test.shape)
 print_from_rank0("y_test.shape = ", y_test.shape)
+print_from_rank0("x_study.shape = ", x_study.shape)
+print_from_rank0("y_study.shape = ", y_study.shape)
+
 
 print_memory_usage_from_rank0("Finish loading data!")
 
@@ -172,6 +181,16 @@ val_loader = torch.utils.data.DataLoader(
     val_dataset, batch_size=args.batch_size, sampler=val_sampler, drop_last=True, **kwargs)
 print_from_rank0("x_val_torch.shape = ", x_val_torch.shape)
 print_from_rank0("y_val_torch.shape = ", y_val_torch.shape)
+
+x_study_torch = torch.from_numpy(x_study).float()
+x_study_torch = x_study_torch.reshape((x_study_torch.shape[0], 1, x_study_torch.shape[1]))
+y_study_torch = torch.from_numpy(y_study).float()
+print_from_rank0("x_study_torch.shape = ", x_study_torch.shape)
+print_from_rank0("y_study_torch.shape = ", y_study_torch.shape)
+
+if rank == 0:
+    torch.save(x_study_torch, "x_study_torch.pt")
+
 
 print_memory_usage_from_rank0("Finish creating torch dataset and loader!")
 
