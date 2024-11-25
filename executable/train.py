@@ -49,7 +49,7 @@ parser.add_argument('--data_dir',       type=str,   default='./',
                     help='root directory of base/test/validation/study/AL subdir')
 parser.add_argument('--shared_file_dir',    type=str,   required=True,
                     help='a directory which saves sharedfile for DDP. It must be empty before running this script')
-parser.add_argument('--do_preprocess_study',    type=str,   required=True,
+parser.add_argument('--do_preprocess_study', action='store_true',
                     help='preprocessing the study set here')
 parser.add_argument('--do_streaming', action='store_true',
                     help='Enable streaming mode')
