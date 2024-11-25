@@ -27,7 +27,7 @@ The **Active Learning Algorithm** can be executed on any computing platform, whi
   module load conda/2024-04-29
   ```
 
-- **On Other Systems**:
+- **On Other Computing Platforms**:
 
   A list of required packages is provided. A shifter container will be available soon to simplify environment setup. In the meantime, users can use the following command to build the environment:
 
