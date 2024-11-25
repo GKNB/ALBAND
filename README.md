@@ -1,12 +1,12 @@
 # An Active Learning-Based Streaming Pipeline for Reduced Data Training of Structure Finding Models in Neutron Diffractometry
 
-This repository provides the code for our recent submission to **BigData 2024**, titled *"An Active Learning-Based Streaming Pipeline for Reduced Data Training of Structure Finding Models in Neutron Diffractometry"*. The code implements two primary contributions discussed in the paper:
+This repository provides the code for the paper titled *"An Active Learning-Based Streaming Pipeline for Reduced Data Training of Structure Finding Models in Neutron Diffractometry"* accepted for publication **BigData 2024**. This repository includes the codebase necessary to the primary contributions presented in the paper:
 
-1. **Active Learning Algorithm**: A data simulation approach driven by the model's performance, allowing the same accuracy to be achieved with fewer data.
+1. **Active Learning Algorithm**: A data simulation approach driven by the model's training performance, allowing the same accuracy to be achieved with significantly lesser training data.
 
-2. **Streaming Algorithm**: An enhancement over the traditional serial active learning workflow, utilizing a resource-efficient streaming pipeline to improve overall performance.
+2. **Streaming Algorithm**: An enhancement over the traditional serial active learning workflow, utilizing a resource-efficient streaming pipeline to improve overall execution time performance.
 
-The **Active Learning Algorithm** can be executed on any system, while the **Streaming Algorithm** requires a job scheduling system and is currently supported on **Polaris** and **Perlmutter**.
+The **Active Learning Algorithm** can be executed on any computing platform, while the **Streaming Algorithm** requires a job scheduling system and, as reported in the paper, is currently supported on **Polaris** and **Perlmutter**.
 
 ## Prerequisites
 
