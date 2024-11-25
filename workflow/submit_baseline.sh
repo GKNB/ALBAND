@@ -1,9 +1,9 @@
 #!/bin/bash -l
 #PBS -l select=1:system=polaris
 #PBS -l place=scatter
-#PBS -l walltime=06:00:00
+#PBS -l walltime=01:00:00
 #PBS -l filesystems=home:grand:eagle
-#PBS -q preemptable
+#PBS -q debug
 #PBS -A RECUP
 
 source /home/twang3/useful_script/conda_exalearn.sh

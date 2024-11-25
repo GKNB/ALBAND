@@ -30,4 +30,6 @@ conda env create -f environment.yml -n <env_name>
 
 1b). Install GSAS-II for simulation tasks:
 
-
+g2="https://github.com/AdvancedPhotonSource/GSAS-II-buildtools/releases/download/v1.0.1/gsas2full-Latest-Linux-x86_64.sh"
+curl -L "$g2" > /tmp/g2.sh
+bash /tmp/g2.sh -b -p ~/g2full
