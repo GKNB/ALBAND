@@ -47,7 +47,7 @@ The **Active Learning Algorithm** can be executed on any system, while the **Str
 
 ## Running the Baseline
 
-The baseline experiment involves running multiple iterations with varying dataset sizes and random seeds to ensure robustness. This process produces the black error bars shown in Figures 7 and 8. Although the exact results may vary, they will be consistent across repeated experiments.
+The baseline experiment involves running multiple iterations with varying dataset sizes and random seeds to ensure robustness. This process produces the black error bars shown in Figures 7 and 8. Although the exact results may diff from those in Figure/Table, they will be consistent.
 
 To run the baseline experiment:
 
@@ -73,7 +73,7 @@ In this step, we execute the active learning serial workflow to evaluate:
 1. The accuracy of the active learning algorithm.
 2. The performance of the serial workflow in terms of runtime.
 
-This experiment produces the black and red error bands in Figures 7 and 8, as well as data for Figures 9 and 10 and Tables III, IV, and V. Note that exact values may vary, but the overall trends will be consistent.
+This experiment produces the black and red error bands in Figures 7 and 8, as well as data for Figures 9 and 10 and Tables III, IV, and V. Although the exact results may diff from those in Figure/Table, they will be consistent.
 
 To run the serial workflow:
 
@@ -101,7 +101,7 @@ Before executing the command, modify the script as follows:
 
 ## Running the Streaming Workflow
 
-The final step involves running the active learning streaming workflow to evaluate the runtime performance of this approach. The results are used for Figures 9 and 10 and Tables III, IV, and V. Although exact numerical results may vary, consistency is maintained across runs.
+The final step involves running the active learning streaming workflow to evaluate the runtime performance of this approach. The results are used for Figures 9 and 10 and Tables III, IV, and V. Although the exact results may diff from those in Figure/Table, they will be consistent.
 
 To run the streaming workflow:
 
@@ -111,4 +111,19 @@ To run the streaming workflow:
   ```
 
 Before executing, ensure the script is configured to match your experimental setup.
+
+- Replace `project_name` with your own (line 7).
+
+**For Experiment E1** (data for Figures 7, 8, 9, 10, and Table III):
+- Set `seed` (line 12) to: 22000, 22100, 22200, 22300, 22400, 22500
+- Set `num_sample` (line 18) to: 4500
+- Set `batch_size` (line 23) to: 512
+
+**For Experiment E2** (data for Tables IV and V):
+- Set `number_of_nodes` (line 2) to: 1, 2, 4
+- Set `queue` (line 6) to: preemptable
+- Set `walltime` (line 4) to: 12:00:00
+- Set `seed` (line 12) to: 32000
+- Set `num_sample` (line 18) to: 72000
+- Set `batch_size` (line 23) to: 2048
 
