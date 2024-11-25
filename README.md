@@ -20,12 +20,14 @@ This repository contains the code for our recent work submitted to **BigData 202
 
   ```bash
   module load pytorch/2.0.1
+  ```
 
 - **On Polaris:**
 
   ```bash
   module use /soft/modulefiles
   module load conda/2024-04-29
+  ```
 
 - **On Other systems**
 
@@ -33,6 +35,7 @@ We provide a packages list. A shifter container will be provided shortly to alle
 
   ```bash
   conda env create -f environment.yml -n <env_name>
+  ```
 
 #### 2. Install GSAS-II for simulation tasks:
 
@@ -41,6 +44,7 @@ We provide a packages list. A shifter container will be provided shortly to alle
   g2="https://github.com/AdvancedPhotonSource/GSAS-II-buildtools/releases/download/v1.0.1/gsas2full-Latest-Linux-x86_64.sh"
   curl -L "$g2" > /tmp/g2.sh
   bash /tmp/g2.sh -b -p ~/g2full
+  ```
 
 Please note that, if you don't want to install into ~/g2full, please search and replace that string in executable directory and make corresponding changes.
 
@@ -51,8 +55,10 @@ In this step we try to perform baseline experiment and sweep over multiple datas
 
 The command for running this experiment will be:
 
-cd workflow
-qsub submit_baseline.sh
+  ```bash
+  cd workflow
+  qsub submit_baseline.sh
+  ```
 
 
 Before executing this command, modify the script according to the following directions:
@@ -76,8 +82,10 @@ In this step we try to run the active learning serial workflow. This will output
 
 The command for running this experiment will be
 
-cd workflow
-qsub submit_serial.sh
+  ```bash
+  cd workflow
+  qsub submit_serial.sh
+  ```
 
 
 Before executing this command, modify the script according to the following directions:
