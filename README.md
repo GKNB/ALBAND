@@ -1,14 +1,12 @@
 # An Active Learning-Based Streaming Pipeline for Reduced Data Training of Structure Finding Models in Neutron Diffractometry
 
-This repository contains the code for our recent work submitted to **BigData 2024**, titled "*An Active Learning-Based Streaming Pipeline for Reduced Data Training of Structure Finding Models in Neutron Diffractometry*". The code provides implementations for the two main contributions of the paper:
+This repository provides the code for our recent submission to **BigData 2024**, titled *"An Active Learning-Based Streaming Pipeline for Reduced Data Training of Structure Finding Models in Neutron Diffractometry"*. The code implements two primary contributions discussed in the paper:
 
-1. **Active Learning Algorithm**: A smarter data simulation approach based on the performance of a machine learning model, allowing the model to achieve the same accuracy with less data.
+1. **Active Learning Algorithm**: A data simulation approach driven by the model's performance, allowing the same accuracy to be achieved with fewer data.
 
-2. **Streaming Algorithm**: An improved workflow over the usual serial active learning workflow, utilizing a more resource-friendly streaming pipeline to enhance overall performance.
+2. **Streaming Algorithm**: An enhancement over the traditional serial active learning workflow, utilizing a resource-efficient streaming pipeline to improve overall performance.
 
-- The **Active Learning Algorithm** can be tested on any system.
-
-- The **Streaming Algorithm** requires a job scheduling system and is supported only on **Polaris** and **Perlmutter**.
+The **Active Learning Algorithm** can be executed on any system, while the **Streaming Algorithm** requires a job scheduling system and is currently supported on **Polaris** and **Perlmutter**.
 
 ## Prerequisites
 
@@ -29,89 +27,88 @@ This repository contains the code for our recent work submitted to **BigData 202
   module load conda/2024-04-29
   ```
 
-- **On Other systems**
+- **On Other Systems**:
 
-We provide a packages list. A shifter container will be provided shortly to alleviate the need for building environment from scratch. Before that, user can use the following command to build env:
+  A list of required packages is provided. A shifter container will be available soon to simplify environment setup. In the meantime, users can use the following command to build the environment:
 
   ```bash
   conda env create -f environment.yml -n <env_name>
   ```
 
-#### 2. Install GSAS-II for simulation tasks:
+#### 2. Install GSAS-II for Simulation Tasks:
 
-  
   ```bash
   g2="https://github.com/AdvancedPhotonSource/GSAS-II-buildtools/releases/download/v1.0.1/gsas2full-Latest-Linux-x86_64.sh"
   curl -L "$g2" > /tmp/g2.sh
   bash /tmp/g2.sh -b -p ~/g2full
   ```
 
-Please note that, if you don't want to install into ~/g2full, please search and replace that string in executable directory and make corresponding changes.
+  If you prefer not to install GSAS-II in `~/g2full`, please modify the relevant paths in the executable scripts accordingly.
 
+## Running the Baseline
 
-## Running the baseline
+The baseline experiment involves running multiple iterations with varying dataset sizes and random seeds to ensure robustness. This process produces the black error bars shown in Figures 7 and 8. Although the exact results may vary, they will be consistent across repeated experiments.
 
-We start with baseline experiment and sweep over multiple dataset size. We also run with multiple random number seed for robustness. This will give us the black error bar in Figure 7,8. Note: We will not get exactly the same number, but results will be consistent.
-
-The command for running this experiment will be:
+To run the baseline experiment:
 
   ```bash
   cd workflow
   qsub submit_baseline.sh
   ```
 
-Before executing this command, modify the script according to the following directions:
+Before executing the command, modify the script as follows:
 
-Here the script will be executed multiple times, with the following parameter combination:
+- Set `seed` (line 12) to: 13010, 13110, 13210, 13310, 13410, 13510
+- Set `num_sample` (line 18) to: 40000, 80000, 120000, 160000, 200000, 240000
+- Ensure the environment is properly set up (see step 1), and adjust line 9 accordingly.
+- Define `work_dir` as the directory containing this repository (line 13).
+- For `num_sample` exceeding 120000, use a different queue (e.g., preemptable) on Polaris, as these tasks cannot complete within an hour.
 
-seed (line 12): 13010, 13110, 13210, 13310, 13410, 13510
-num_sample (line 18): 40000, 80000, 120000, 160000, 200000, 240000
-In total 6*6=36 experiments shall be done to generate six data point for baseline experiment with error bar
+A total of 36 experiments will be conducted to generate six data points with error bars.
 
-Before running real executable, need to setup env (See step 1). Modify line 9 accordingly.
+## Running the Serial Workflow
 
-Setting up the work_dir as the dir where this repo is. Change line 13 accordingly.
+In this step, we execute the active learning serial workflow to evaluate:
 
-Also notice, for num_sample that exceeds 120000, task can not finish within one hour, need to use different queue (like preemptable) on Polaris
+1. The accuracy of the active learning algorithm.
+2. The performance of the serial workflow in terms of runtime.
 
+This experiment produces the black and red error bands in Figures 7 and 8, as well as data for Figures 9 and 10 and Tables III, IV, and V. Note that exact values may vary, but the overall trends will be consistent.
 
-## Running the serial workflow
-
-In this step we try to run the active learning serial workflow. This will output two important data: a). Accuracy performance of Active learning, and b). Running time performance of serial workflow. This will give us the black/red error band in Figure 7,8, data associate with serial workflow in Figure 9,10 and Table III,IV,V. Note: We will not get exactly the same number, but results will be consistent.
-
-The command for running this experiment will be
+To run the serial workflow:
 
   ```bash
   cd workflow
   qsub submit_serial.sh
   ```
 
+Before executing the command, modify the script as follows:
 
-Before executing this command, modify the script according to the following directions:
+- Replace `project_name` with your own (line 7).
 
-Use your own project name (line 7)
+**For Experiment E1** (data for Figures 7, 8, 9, 10, and Table III):
+- Set `seed` (line 12) to: 21000, 21100, 21200, 21300, 21400, 21500
+- Set `num_sample` (line 18) to: 4500
+- Set `batch_size` (line 23) to: 512
 
-To get the red and blue error band in Figure 7,8, data associated with serial workflow in Figure 9,10 and Table III (i.e., Experiment E1), use the following parameter combination:
-seed (line 12): 21000, 21100, 21200, 21300, 21400, 21500
-num_sample (line 18): 4500
-batch_size (line 23): 512
+**For Experiment E2** (data for Tables IV and V):
+- Set `number_of_nodes` (line 2) to: 1, 2, 4
+- Set `queue` (line 6) to: preemptable
+- Set `walltime` (line 4) to: 12:00:00
+- Set `seed` (line 12) to: 31000
+- Set `num_sample` (line 18) to: 72000
+- Set `batch_size` (line 23) to: 2048
 
-To get data associated with serial workflow in Table IV,V (i.e., Experiment E2), use the following parameter combination:
-number_of_nodes (line 2): 1, 2, 4
-queue (line 6): preemptable
-walltime (line 4): 12:00:00
-seed (line 12): 31000
-num_sample (line 18): 72000
-batch_size (line 23): 2048
+## Running the Streaming Workflow
 
+The final step involves running the active learning streaming workflow to evaluate the runtime performance of this approach. The results are used for Figures 9 and 10 and Tables III, IV, and V. Although exact numerical results may vary, consistency is maintained across runs.
 
-## Running the streaming workflow
-
-In this step we try to run the active learning streaming workflow. The will give us the running time performance of the streaming workflow. This will give us data associate with streaming workflow in Figure 9,10, and Table III,IV,V. Note: We will not get exactly the same number, but results will be consistent.
-
-The command for running this experiment will be
+To run the streaming workflow:
 
   ```bash
   cd workflow
   qsub submit_stream.sh
   ```
+
+Before executing, ensure the script is configured to match your experimental setup.
+
