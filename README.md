@@ -49,9 +49,9 @@ We provide a packages list. A shifter container will be provided shortly to alle
 Please note that, if you don't want to install into ~/g2full, please search and replace that string in executable directory and make corresponding changes.
 
 
-Step 2: Running the baseline
+## Running the baseline
 
-In this step we try to perform baseline experiment and sweep over multiple dataset size. We also run with multiple random number seed for robustness. This will give us the black error bar in Figure 7,8. Note: We will not get exactly the same number, but results will be consistent.
+We start with baseline experiment and sweep over multiple dataset size. We also run with multiple random number seed for robustness. This will give us the black error bar in Figure 7,8. Note: We will not get exactly the same number, but results will be consistent.
 
 The command for running this experiment will be:
 
@@ -59,7 +59,6 @@ The command for running this experiment will be:
   cd workflow
   qsub submit_baseline.sh
   ```
-
 
 Before executing this command, modify the script according to the following directions:
 
@@ -76,7 +75,7 @@ Setting up the work_dir as the dir where this repo is. Change line 13 accordingl
 Also notice, for num_sample that exceeds 120000, task can not finish within one hour, need to use different queue (like preemptable) on Polaris
 
 
-Step 3: Running the serial workflow
+## Running the serial workflow
 
 In this step we try to run the active learning serial workflow. This will output two important data: a). Accuracy performance of Active learning, and b). Running time performance of serial workflow. This will give us the black/red error band in Figure 7,8, data associate with serial workflow in Figure 9,10 and Table III,IV,V. Note: We will not get exactly the same number, but results will be consistent.
 
@@ -104,3 +103,15 @@ walltime (line 4): 12:00:00
 seed (line 12): 31000
 num_sample (line 18): 72000
 batch_size (line 23): 2048
+
+
+## Running the streaming workflow
+
+In this step we try to run the active learning streaming workflow. The will give us the running time performance of the streaming workflow. This will give us data associate with streaming workflow in Figure 9,10, and Table III,IV,V. Note: We will not get exactly the same number, but results will be consistent.
+
+The command for running this experiment will be
+
+  ```bash
+  cd workflow
+  qsub submit_stream.sh
+  ```

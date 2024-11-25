@@ -139,6 +139,7 @@ cd ${exp_dir}
                                    --num_threads 8 \
                                    --phase_idx 0 \
                                    --data_dir ${data_dir} \
+                                   --do_preprocess_study \
                                    --shared_file_dir ${shared_file_dir}
     echo "Logging: End training phase 0, $(( $(date +%s%3N) - ${start} )) milliseconds"
  

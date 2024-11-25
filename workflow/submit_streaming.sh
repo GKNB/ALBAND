@@ -15,11 +15,11 @@ exe_dir="${work_dir}/executable/"
 exp_dir="${work_dir}/experiment/seed_${seed}/"
 shared_file_dir="${exp_dir}/sfd/"
 data_dir="${work_dir}/data/seed_${seed}/"
-num_sample=18000
+num_sample=4500
 num_sample_val=$((${num_sample} / 2))
 num_sample_test=$((${num_sample} / 2))
 num_sample_study=${num_sample}
-num_al_sample=75600
+num_al_sample=5400
 num_al_sample_final_stage=$((${num_sample} * 3))
 batch_size=512
 epochs_0=400
@@ -145,13 +145,11 @@ cd ${exp_dir}
         mpiexec -n 1 --ppn 1 --cpu-bind list:2,3,4,5,6,7,10,11,12,13,14,15,18,19,20,21,22,23,26,27,28,29,30,31 --env OMP_NUM_THREADS=24 --env OMP_PLACES=threads python ${exe_dir}/merge_preprocess_hdf5.py ${data_dir}/study/data tetragonal ${nthread_study_tot}
         echo "Logging: End study simulation and merge, $(( $(date +%s%3N) - ${start2} )) milliseconds"
  
-        # Here separating the preprocessing of study set could lead to error on Polaris
-        # so we merge it into the train.py, which will lead to some performance drop   
-        # echo "Logging: Start preprocessing study set"
-        # start2=$(date +%s%3N)
-        # mpiexec -n 1 --ppn 1 --depth=24 --cpu-bind depth --env OMP_NUM_THREADS=24 --env OMP_PLACES=threads \
-        #     python ${exe_dir}/preprocess_study.py --data_dir ${data_dir}
-        # echo "Logging: End preprocessing study set, $(( $(date +%s%3N) - ${start2} )) milliseconds"
+        echo "Logging: Start preprocessing study set"
+        start2=$(date +%s%3N)
+        mpiexec -n 1 --ppn 1 --depth=24 --cpu-bind depth --env OMP_NUM_THREADS=24 --env OMP_PLACES=threads \
+            python ${exe_dir}/preprocess_study.py --data_dir ${data_dir}
+        echo "Logging: End preprocessing study set, $(( $(date +%s%3N) - ${start2} )) milliseconds"
     ) &
     
     wait
