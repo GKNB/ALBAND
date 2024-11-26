@@ -1,6 +1,6 @@
 # An Active Learning-Based Streaming Pipeline for Reduced Data Training of Structure Finding Models in Neutron Diffractometry
 
-This repository provides the code for the paper titled *"An Active Learning-Based Streaming Pipeline for Reduced Data Training of Structure Finding Models in Neutron Diffractometry"* accepted for publication **BigData 2024**. This repository includes the codebase necessary to the primary contributions presented in the paper:
+This repository provides the code for the paper titled *"An Active Learning-Based Streaming Pipeline for Reduced Data Training of Structure Finding Models in Neutron Diffractometry"* accepted for publication in **BigData 2024**. This repository includes the codebase necessary to the primary contributions presented in the paper:
 
 1. **Active Learning Algorithm**: A data simulation approach driven by the model's training performance, allowing the same accuracy to be achieved with significantly lesser training data.
 
