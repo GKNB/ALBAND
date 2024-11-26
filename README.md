@@ -79,7 +79,7 @@ To run the serial workflow:
 
   ```bash
   cd workflow
-  qsub submit_serial.sh
+  qsub submit_serial_polaris.sh
   ```
 
 Before executing the command, modify the script as follows:
@@ -107,7 +107,7 @@ To run the streaming workflow:
 
   ```bash
   cd workflow
-  qsub submit_stream.sh
+  qsub submit_stream_polaris.sh
   ```
 
 Before executing, ensure the script is configured to match your experimental setup.
