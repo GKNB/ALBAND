@@ -128,5 +128,3 @@ Before executing, ensure the script is configured to match your experimental set
 - Set `num_sample` (line 18) to: 72000
 - Set `num_al_sample` (line 22) to: 86400
 - Set `batch_size` (line 24) to: 2048
-
-## Running Experiment E2 on Perlmutter
