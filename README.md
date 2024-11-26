@@ -6,7 +6,7 @@ This repository provides the code for the paper titled *"An Active Learning-Base
 
 2. **Streaming Algorithm**: An enhancement over the traditional serial active learning workflow, utilizing a resource-efficient streaming pipeline to improve overall execution time performance.
 
-The **Active Learning Algorithm** can be executed on any computing platform, while the **Streaming Algorithm** requires a job scheduling system and, as reported in the paper, is currently supported on **Polaris** and **Perlmutter**.
+The **Active Learning Algorithm** can be executed on any computing platform, while the **Streaming Algorithm** requires a job scheduling system and is currently supported on **Polaris** and **Perlmutter** as reported in the paper.
 
 ## Prerequisites
 
