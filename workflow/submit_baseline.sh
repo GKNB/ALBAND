@@ -38,7 +38,7 @@ cd ${exp_dir}
 
     mpiexec -n 1 --ppn 1 \
         --depth=32 --cpu-bind depth --env OMP_NUM_THREADS=32 --env OMP_PLACES=threads \
-        python3 ${work_dir}/prepare_data_dir.py --seed ${seed}
+        python3 ${work_dir}/prepare_data_dir_polaris.py --seed ${seed}
     
     echo "Logging: Start base simulation and merge!"
     start=$(date +%s%3N)
@@ -60,7 +60,7 @@ cd ${exp_dir}
     mpiexec -n ${nthread} --ppn ${nthread} \
         --depth=1 --cpu-bind depth --env OMP_NUM_THREADS=1 --env OMP_PLACES=threads \
         python ${exe_dir}/simulation_sample.py \
-               ${num_sample_val} $((${seed} + 1)) \
+               ${num_sample_val} $((${seed} - 1)) \
                ${data_dir}/validation/config/config_1001460_cubic.txt \
                ${data_dir}/validation/config/config_1522004_trigonal.txt \
                ${data_dir}/validation/config/config_1531431_tetragonal.txt

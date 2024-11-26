@@ -117,7 +117,7 @@ Before executing, ensure the script is configured to match your experimental set
 **For Experiment E1** (data for Figures 7, 8, 9, 10, and Table III):
 - Set `seed` (line 12) to: 22000, 22100, 22200, 22300, 22400, 22500
 - Set `num_sample` (line 18) to: 4500
-- Set `num_al_sample` (line 22) to: 5400
+- Set `num_al_sample` (line 22) to: 16200
 - Set `batch_size` (line 24) to: 512
 
 **For Experiment E2** (data for Tables IV and V):
@@ -126,7 +126,7 @@ Before executing, ensure the script is configured to match your experimental set
 - Set `walltime` (line 4) to: 12:00:00
 - Set `seed` (line 12) to: 32000
 - Set `num_sample` (line 18) to: 72000
-- Set `num_al_sample` (line 22) to: 86400
+- Set `num_al_sample` (line 22) to: 259200
 - Set `batch_size` (line 24) to: 2048
 
 ## Running Experiment E2 on Perlmutter

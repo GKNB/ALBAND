@@ -1,16 +1,17 @@
 #!/bin/bash -l
-#PBS -l select=1:system=polaris
-#PBS -l place=scatter
-#PBS -l walltime=01:00:00
-#PBS -l filesystems=home:grand:eagle
-#PBS -q debug
-#PBS -A RECUP
+#SBATCH -A m2616_g
+#SBATCH -C gpu
+#SBATCH -q premium
+#SBATCH -t 01:00:00
+#SBATCH -N 1
+#SBATCH --exclusive
 
-source /home/twang3/useful_script/conda_exalearn.sh
-export MPICH_GPU_SUPPORT_ENABLED=1
+module load pytorch
+which python
+export MPICH_GPU_SUPPORT_ENABLED=0
 
-seed=30210
-work_dir="/lus/eagle/projects/RECUP/twang/RALPH/"
+seed=30030
+work_dir="/pscratch/sd/t/tianle/myWork/exalearn/ALBAND/"
 exe_dir="${work_dir}/executable/"
 exp_dir="${work_dir}/experiment/seed_${seed}/"
 shared_file_dir="${exp_dir}/sfd/"
@@ -19,7 +20,7 @@ num_sample=4500
 num_sample_val=$((${num_sample} / 2))
 num_sample_test=$((${num_sample} / 2))
 num_sample_study=${num_sample}
-num_al_sample=5400
+num_al_sample=16200
 num_al_sample_final_stage=$((${num_sample} * 3))
 batch_size=512
 epochs_0=400
@@ -57,7 +58,7 @@ cd ${exp_dir}
 
     mpiexec -n 1 --ppn 1 \
         --depth=32 --cpu-bind depth --env OMP_NUM_THREADS=32 --env OMP_PLACES=threads \
-        python3 ${work_dir}/prepare_data_dir.py --seed ${seed}
+        python3 ${work_dir}/prepare_data_dir_polaris.py --seed ${seed}
     
     echo "Logging: Start base simulation and merge!"
     start=$(date +%s%3N)
